@@ -50,7 +50,7 @@ Move player with left and right arrows.
 
 ## `game.rb` file
 
-The minimal strucure for main script is  :
+The minimal structure for main script is  :
 
 ```ruby
 require 'gosu'
