@@ -32,7 +32,7 @@ game.rb
 │   ├── enemy.rb
 │   └── player.rb
 └── media/
-    ├── background.png
+    ├── background.jpg
     ├── enemy.png
     ├── bullet.png
     └── player.png
