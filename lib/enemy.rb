@@ -1,6 +1,7 @@
 # class Enemy
 class Enemy
   attr_reader :x, :y, :img
+
   def initialize
     @img_path = File.dirname(__FILE__) + '/../media/enemy.png'
     @img = Gosu::Image.new(@img_path)

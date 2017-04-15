@@ -1,6 +1,7 @@
 # class Bullet
 class Bullet
   attr_reader :x, :y
+
   def initialize(player)
     @player = player
     @img_path = File.dirname(__FILE__) + '/../media/bullet.png'
