@@ -4,7 +4,6 @@ require_relative 'lib/enemy'
 
 # class Game
 class Game < Gosu::Window
-  # attr_reader :WIDTH, :HEIGHT
   WIDTH = 640
   HEIGHT = 480
   def initialize
