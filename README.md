@@ -9,11 +9,11 @@ Thank you guys :)
 
 Feel free to clone it and of course improve it ; so far it lacks of :
 
-* a start screen
-* animations for hits
-* sounds
-* game-over
-* and it's obviously a very bad game
+- [x] animations for hits *DONE*
+- [] a start screen
+- [] sounds
+- [] game-over
+- [] and it's obviously a very bad game
 
 # Basics
 
