@@ -12,9 +12,9 @@ Feel free to clone it and of course improve it
 ## To do
 
 - [x] animations for hits
+- [x] add sounds
 - add a start menu screen
 - pause game
-- add sounds
 - game-over logic
 - save best score
 - it's obviously a very bad game, fix it
