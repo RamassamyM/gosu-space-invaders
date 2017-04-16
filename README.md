@@ -7,13 +7,17 @@ It comes from my own experiment with Gosu at
 [Le Wagon Bordeaux](https://www.lewagon.com/fr/bordeaux) 9 weeks bootcamp.
 Thank you guys :)
 
-Feel free to clone it and of course improve it ; so far it lacks of :
+Feel free to clone it and of course improve it
 
-- [x] animations for hits *DONE*
-- a start screen
-- sounds
-- game-over
-- and it's obviously a very bad game
+## To do
+
+- [x] animations for hits
+- add a start menu screen
+- pause game
+- add sounds
+- game-over logic
+- save best score
+- it's obviously a very bad game, fix it
 
 # Basics
 

@@ -14,6 +14,7 @@ class Explosion
 
   def draw
     img = @animation[Gosu.milliseconds / 100 % @animation.size]
-    img.draw(@x - img.width / 2.0, @y - img.height / 2.0, 0)
+    # img.draw(@x - img.width / 2.0, @y - img.height / 2.0, 0)
+    img.draw(@x, @y, 0)
   end
 end
