@@ -9,61 +9,59 @@ class Game < Gosu::Window
   HEIGHT = 480
   def initialize
     super(WIDTH, HEIGHT)
+    load_sounds
+    load_images
     self.caption = 'Gosu demo'
-    @background = Gosu::Image.new('media/background.jpg')
-    @player = Player.new(WIDTH)
+    @player = Player.new(@player_img, WIDTH)
     @player.wrap(WIDTH / 2 + @player.width / 2, HEIGHT - @player.height - 10)
     @enemies = []
     @explosions = []
     @clock = 0
     @font = Gosu::Font.new(20)
-    load_sounds
   end
 
+  # Initialisation -------------------------------------------------------------
   def load_sounds
-    @enemy_passed_sound = Gosu::Sample.new('media/NFF-whizz.wav')
-    @enemy_hit_sound = Gosu::Sample.new('media/NFF-feed-2.wav')
-    @player_hit_sound = Gosu::Sample.new('media/NFF-springy-hit.wav')
+    @enemy_passed_sound = Gosu::Sample.new('media/sound/NFF-whizz.wav')
+    @enemy_hit_sound    = Gosu::Sample.new('media/sound/NFF-feed-2.wav')
+    @player_hit_sound   = Gosu::Sample.new('media/sound/NFF-springy-hit.wav')
   end
 
-  def show_score
-    @font.draw(
-      "Score: #{@player.score}",
-      10, 10, 0, 1.0, 1.0, Gosu::Color::AQUA
-    )
+  def load_images
+    @background     = Gosu::Image.new('media/img/background.jpg')
+    @player_img     = Gosu::Image.new('media/img/player.png')
+    @bullet_img     = Gosu::Image.new('media/img/bullet.png')
+    @enemy_img      = Gosu::Image.new('media/img/enemy.png')
+    @explosion_anim = Gosu::Image.load_tiles('media/img/explosion.png', 30, 30)
   end
 
+  # Logic and update -----------------------------------------------------------
   def enemies_wave(enemies_nb)
-    enemies_nb.times { @enemies << Enemy.new }
+    enemies_nb.times { @enemies << Enemy.new(@enemy_img) }
   end
 
   def detect_hits
     @enemies.each do |enemy|
       @player.bullets.each do |bullet|
-        if Gosu.distance(enemy.x, enemy.y, bullet.x, bullet.y) < 20
-          run_explosion_anim(enemy)
-          @enemy_hit_sound.play(0.5)
-          @enemies.delete(enemy)
-          @player.score += 10
-        end
+        next unless bullet.collide?(enemy)
+        run_explosion_anim(enemy)
+        @enemy_hit_sound.play(0.5)
+        @enemies.delete(enemy)
+        @player.score += 10
       end
     end
   end
 
   def detect_player_hits
     @enemies.each do |enemy|
-      @player_hit_sound.play if Gosu.distance(@player.x, @player.y, enemy.x, enemy.y) < 20
+      @player_hit_sound.play if @player.collide?(enemy)
     end
-  end
-
-  def run_explosion_anim(enemy)
-    @explosions << Explosion.new(enemy, @clock)
   end
 
   def player_update
     @player.move_left if Gosu.button_down?(Gosu::KB_LEFT)
     @player.move_right if Gosu.button_down?(Gosu::KB_RIGHT)
-    @player.load_fire if (@clock % 7).zero?
+    @player.load_fire(@bullet_img) if (@clock % 7).zero?
     @player.fire
   end
 
@@ -93,6 +91,18 @@ class Game < Gosu::Window
     explosions_update
   end
 
+  # Display --------------------------------------------------------------------
+  def show_score
+    @font.draw(
+      "Score: #{@player.score}",
+      10, 10, 0, 1.0, 1.0, Gosu::Color::AQUA
+    )
+  end
+
+  def run_explosion_anim(enemy)
+    @explosions << Explosion.new(@explosion_anim, enemy, @clock)
+  end
+
   def draw
     @background.draw(0, 0, 0)
     @player.draw
@@ -103,4 +113,5 @@ class Game < Gosu::Window
   end
 end
 
+# ------------------------------------------------------------------------------
 Game.new.show

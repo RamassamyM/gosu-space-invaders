@@ -1,15 +1,13 @@
+require_relative 'sprite'
 require_relative 'bullet'
 
 # class Player
-class Player
-  attr_reader :x, :y, :img, :width, :height, :bullets
+class Player < Sprite
+  attr_reader :bullets
   attr_accessor :score
-  def initialize(game_width)
+  def initialize(img, game_width)
+    super(img)
     @game_width = game_width
-    @img_path = File.dirname(__FILE__) + '/../media/player.png'
-    @img = Gosu::Image.new(@img_path)
-    @width = @img.width
-    @height = @img.height
     @x, @y = 0
     @score = 0
     @speed = 4
@@ -21,10 +19,6 @@ class Player
     @y = y
   end
 
-  def draw
-    @img.draw(@x, @y, 0)
-  end
-
   def move_left
     @x -= @speed unless @x <= 0
   end
@@ -33,9 +27,9 @@ class Player
     @x += @speed unless @x + @width >= @game_width
   end
 
-  def load_fire
+  def load_fire(img)
     # each bullet has a reference on Player for its starting position (x, y)
-    @bullets << Bullet.new(self)
+    @bullets << Bullet.new(img, self)
   end
 
   def fire

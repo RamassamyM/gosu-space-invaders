@@ -1,10 +1,9 @@
-# class Enemy
-class Enemy
-  attr_reader :x, :y, :img
+require_relative 'sprite'
 
-  def initialize
-    @img_path = File.dirname(__FILE__) + '/../media/enemy.png'
-    @img = Gosu::Image.new(@img_path)
+# class Enemy
+class Enemy < Sprite
+  def initialize(img)
+    super(img)
     @x = rand(10..500)
     @y = 0.0
     @speed = rand(1..3).to_f
@@ -12,9 +11,5 @@ class Enemy
 
   def move
     @y += @speed
-  end
-
-  def draw
-    @img.draw(@x, @y, 0)
   end
 end

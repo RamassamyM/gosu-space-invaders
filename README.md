@@ -13,6 +13,7 @@ Feel free to clone it and of course improve it
 
 - [x] animations for hits
 - [x] add sounds
+- [x] improved collisions
 - add a start menu screen
 - pause game
 - game-over logic
@@ -42,7 +43,8 @@ game.rb
     └── player.png
 ```
 
-`lib/player.rb`, `lib/enemy.rb` and `lib/bullet.rb` are classes for your sprites ; window management, display and logics are managed in `game.rb`. Put your assets in `media/`
+`lib/` files are classes for game objects ; initialization, window management,
+display and logics are managed in `game.rb`. Put your assets in `media/`
 
 ## Run game
 
@@ -66,7 +68,7 @@ class Game < Gosu::Window
   def initialize
     super(640, 480)
     # of course you can also play full screen
-    # instantiate here your player and enemies
+    # instantiate here your player
     # ...
   end
 
