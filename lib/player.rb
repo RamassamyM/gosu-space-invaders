@@ -10,7 +10,8 @@ class Player
     @img = Gosu::Image.new(@img_path)
     @width = @img.width
     @height = @img.height
-    @x, @y, @score = 0
+    @x, @y = 0
+    @score = 0
     @speed = 4
     @bullets = []
   end
