@@ -17,6 +17,13 @@ class Game < Gosu::Window
     @explosions = []
     @clock = 0
     @font = Gosu::Font.new(20)
+    load_sounds
+  end
+
+  def load_sounds
+    @enemy_passed_sound = Gosu::Sample.new('media/NFF-whizz.wav')
+    @enemy_hit_sound = Gosu::Sample.new('media/NFF-feed-2.wav')
+    @player_hit_sound = Gosu::Sample.new('media/NFF-springy-hit.wav')
   end
 
   def show_score
@@ -35,10 +42,17 @@ class Game < Gosu::Window
       @player.bullets.each do |bullet|
         if Gosu.distance(enemy.x, enemy.y, bullet.x, bullet.y) < 20
           run_explosion_anim(enemy)
+          @enemy_hit_sound.play(0.5)
           @enemies.delete(enemy)
           @player.score += 10
         end
       end
+    end
+  end
+
+  def detect_player_hits
+    @enemies.each do |enemy|
+      @player_hit_sound.play if Gosu.distance(@player.x, @player.y, enemy.x, enemy.y) < 20
     end
   end
 
@@ -56,7 +70,10 @@ class Game < Gosu::Window
   def enemies_update
     enemies_wave(rand(5..10)) if (@clock % 125).zero?
     @enemies.each do |enemy|
-      @enemies.delete(enemy) if enemy.y >= HEIGHT
+      if enemy.y >= HEIGHT
+        @enemies.delete(enemy)
+        @enemy_passed_sound.play
+      end
       enemy.move
     end
   end
